@@ -1,0 +1,51 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+{% if user.is_authenticated %}
+    <form method="post" id="newpostform">
+      <label>New POST</label>
+      <textarea id="textpost" cols="70" rows="5"></textarea>
+      <input type="button" value="POST" id="newpost"/>
+    </form>
+    {% endif %}
+
+
+    TODO
+    <h1>Following posts</h1>
+    <div id="allposts">
+    {% for post in posts %}
+    <div class="onepost">
+      <a href="{% url 'profile' userid=post.owner.id %}"><h3>{{ post.owner }}</h3></a>
+
+      {% if user.id == post.owner.id %}
+      <strong class="edit" data="{{ post.id }}">Edit</strong>
+     {%endif%}
+
+      <p>{{ post.body }}</p><div class="options">
+
+        <div class="like" data="{{ post.like }}" post="{{ post.id}}">
+
+          {% for userlike in userpostlike %}
+
+          {% if userlike.post == post.id%}
+
+          <strong  data="{{ post.id}}">💔</strong><span>  {{ post.like }}</span>
+
+          <!-- else
+          <strong class="like" data="{{ post.id}}">❤️</strong><span>  {{ post.like }}</span>-->
+          {%endif%}
+
+          {% endfor %}
+
+      </div>
+
+      <span>{{ post.timestamp }}</span>
+
+        <span>Comment</span></div>
+    </div>
+    {% endfor %}
+    </div>
+
+
+
+{% endblock %}

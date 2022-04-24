@@ -1,0 +1,24 @@
+.onepost{
+  padding:10px;
+  border-radius:10px;
+  border:1px solid black;
+}
+#newpostform{
+  padding: 20px;
+background: #f7f7f7;
+text-align: center;
+}
+#newpostform label{color: #646464;
+font-size: 20px;
+display: block;}
+#newpost{display: block;
+margin: auto;}
+textarea{resize:none;border:unset;border-radius:10px;}
+.pagination{
+justify-content: center;
+}
+.options {display:flex;justify-content: space-evenly;}
+.onepost{display: block;
+margin: 20px auto;
+width: 500px;}
+.edit,.like{cursor:pointer;}

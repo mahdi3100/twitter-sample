@@ -1,0 +1,99 @@
+{% extends "network/layout.html" %}
+
+
+
+{% block body %}
+<div id="header">
+  <h2>{{username}}</h2>
+  <ul>
+    <li id="following">Following <em>{{following}}</em></li>
+    <li id="followers">Followers <em>{{followers}}</em></li>
+
+      {% if checkfollow == 0 %}
+    <input type="button" value="Follow" id="follow"/>
+    {% elif checkfollow == 1 %}
+    <input type="button" value="Unfollow"id="follow"/>
+    {% endif %}
+
+  </ul>
+</div>
+
+    <h1>Posts</h1>
+    <div id="userposts">
+    {% for post in posts %}
+    {{post.adminlike}}
+    <div class="onepost" >
+      <a href="{% url 'profile' userid=post.owner.id %}"><h3>{{ post.owner }}</h3></a>
+
+
+      {% if user.id == post.owner.id %}
+      <strong class="edit" data="{{ post.id }}">Edit</strong>
+     {%endif%}
+
+      <p>{{ post.body }}</p><div class=options"">
+
+      <div class="like" data="{{ post.like }}" post="{{ post.id}}">
+        {% for userlike in userpostlike %}
+
+
+        {% if userlike.post == post.id%}
+
+        <strong  data="{{ post.id}}">💔</strong><span>  {{ post.like }}</span>
+
+        <!-- else
+        <strong class="like" data="{{ post.id}}">❤️</strong><span>  {{ post.like }}</span>-->
+        {%endif%}
+
+
+
+        {% endfor %}
+    </div>
+
+
+
+        <span>Comment</span></div>
+          <span>{{ post.timestamp }}</span>
+    </div>
+    {% endfor %}
+
+
+<br>
+
+
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $(document).on("click","#follow",function(){follow()});
+
+      })
+
+
+      function follow(){
+        fetch('/follow', {
+            method: 'PUT',
+            body: JSON.stringify({
+
+                id:{{userid}}
+            })
+
+          })
+          .then(response => response.json())
+          .then(response =>{
+            if(response["error"]){
+                alert(response["error"])
+               return;
+            }
+            $("#follow").attr({"value":response["valuefollow"]})
+            if(response["addremove"] == "add")
+            $("#followers em").text(parseInt($("#followers em").text())-1)
+            else
+              $("#followers em").text(parseInt($("#followers em").text())+1)
+
+
+          });
+      }
+
+
+         </script>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+{% if user.is_authenticated %}
+    <form method="post" id="newpostform">
+      <label>New POST</label>
+      <textarea id="textpost"  cols="70" rows="5"></textarea>
+      <input type="button" value="POST" id="newpost"/>
+    </form>
+    {% endif %}
+
+
+    TODO
+    <h1>All posts</h1>
+    <div id="allposts">
+    {% for post in page_obj %}
+    <div class="onepost">
+      <a href="{% url 'profile' userid=post.owner.id %}"><h3>{{ post.owner }}</h3></a>
+
+      {% if user.id == post.owner.id %}
+      <strong class="edit" data="{{ post.id }}">Edit</strong>
+     {%endif%}
+      <p>{{ post.body }}</p>
+      <div class="options">
+
+        <div class="like" data="{{ post.like }}" post="{{ post.id}}">
+
+          {% for userlike in userpostlike %}
+
+          {% if userlike.post == post.id%}
+
+          <strong  data="{{ post.id}}">💔</strong><span>  {{ post.like }}</span>
+
+          <!-- else
+          <strong class="like" data="{{ post.id}}">❤️</strong><span>  {{ post.like }}</span>-->
+          {%endif%}
+
+          {% endfor %}
+
+      </div>
+        <span>Comment</span>
+        <span>{{ post.timestamp }}</span>
+
+
+      </div>
+    </div>
+    {% endfor %}
+    </div>
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?p={{ page_obj.previous_page_number }}">Previous</a></li>
+      {% endif %}
+      {% if page_obj %}
+        <li class="page-item active"><a class="page-link" href="?p={{ page_obj.number }}">{{ page_obj.number }}  of {{ page_obj.paginator.num_pages }}<span class="sr-only">(current)</span></a></li>
+      {%endif%}
+      {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?p={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+        {% endif %}
+
+      </ul>
+    </nav>
+
+{% endblock %}
