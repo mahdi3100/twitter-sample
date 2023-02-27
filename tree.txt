@@ -1,0 +1,35 @@
+.
+├── db.sqlite3
+├── LICENSE
+├── manage.py
+├── network
+│   ├── admin.py
+│   ├── apps.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── static
+│   │   └── network
+│   │       ├── jquery.js
+│   │       ├── main.js
+│   │       └── styles.css
+│   ├── templates
+│   │   └── network
+│   │       ├── following.html
+│   │       ├── index.html
+│   │       ├── layout.html
+│   │       ├── login.html
+│   │       ├── register.html
+│   │       └── user.html
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── project4
+│   ├── asgi.py
+│   ├── __init__.py
+│   ├── __pycache__
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── ReadMe.md
+
+10 directories, 56 files
